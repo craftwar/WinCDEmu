@@ -25,7 +25,8 @@ install:
   - pwd
   - cmd  
 #  - cd ..
-  - mklink /H C:\projects\BazisLib %APPVEYOR_BUILD_FOLDER%\BazisLib
+#  - mklink /H C:\projects\BazisLib %APPVEYOR_BUILD_FOLDER%\BazisLib
+  - cp -r BazisLib ..
 #  - move BazisLib ..
 #  - cmd
 
