@@ -24,7 +24,7 @@ install:
   - git submodule update --init --recursive
   - pwd
   - cd ..
-  - mklink /H C:\projects\BazisLib '%APPVEYOR_BUILD_FOLDER%\BazisLib'
+  - mklink /H C:\projects\BazisLib %APPVEYOR_BUILD_FOLDER%\BazisLib
 #  - move BazisLib ..
 #  - cmd
 
