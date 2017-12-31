@@ -6,21 +6,22 @@ init:
 environment:
   BZSLIB_PATH: '%APPVEYOR_BUILD_FOLDER%\BazisLib'
   STLPORT_PATH: '%APPVEYOR_BUILD_FOLDER%\stlport-kernel'
-  WDK7PATH: C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1A
-  WTL_PATH: '%APPVEYOR_BUILD_FOLDER%\wtl81_12085'
+  WDK7PATH: C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A
+  WTL_PATH: '%APPVEYOR_BUILD_FOLDER%\wtl'
 
 install:
   - echo %APPVEYOR_BUILD_FOLDER%
 #  - if not exist wtl81_12085.zip curl -kLo wtl81_12085.zip "https://downloads.sourceforge.net/project/wtl/WTL%208.1/WTL%208.1.12085/wtl81_12085.zip?r=&ts=1514700083" -f --retry 5 -C -
-  - if not exist wtl81_12085.zip curl -kLo wtl81_12085.zip "https://downloads.sourceforge.net/project/wtl/WTL 8.1/WTL 8.1.12085/wtl81_12085.zip" -f --retry 5 -C -
+#  - if not exist wtl81_12085.zip curl -kLo wtl.zip "https://downloads.sourceforge.net/project/wtl/WTL 8.1/WTL 8.1.12085/wtl81_12085.zip" -f --retry 5 -C -
+  - if not exist wtl81_12085.zip curl -kLo wtl.zip "https://downloads.sourceforge.net/project/wtl/WTL 8.0/WTL 8.0 Final/WTL80_7161_Final.zip" -f --retry 5 -C -
 #-FileName NsProcess.zip
 #appveyor DownloadFile "http://downloads.sourceforge.net/project/nsis/NSIS 2/2.46/nsis-2.46-setup.exe" -FileName nsissetup.exe
 #  - if not exist wtl81_12085.zip appveyor DownloadFile "https://downloads.sourceforge.net/project/wtl/WTL 8.1/WTL 8.1.12085/wtl81_12085.zip"
-  - 7z x wtl81_12085.zip -o.
+  - 7z x wtl.zip -o.
   - git submodule update --init --recursive
   - pwd
 #  - move BazisLib ..
-#  - cmd
+  - cmd
 
 build_script:  
   - '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" x64_x86' #use cross build x86 to speed up
@@ -40,4 +41,4 @@ deploy_script:
 test: off
 
 cache:
-  - wtl81_12085.zip
+  - wtl.zip
