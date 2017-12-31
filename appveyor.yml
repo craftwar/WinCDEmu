@@ -4,8 +4,8 @@ image: Visual Studio 2015
 init:
   - ps: if ($env:rdp -eq "1") { iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1')) }
 environment:
-#  BZSLIB_PATH: '%APPVEYOR_BUILD_FOLDER%\BazisLib'
-  BZSLIB_PATH: C:\projects\BazisLib
+  BZSLIB_PATH: '%APPVEYOR_BUILD_FOLDER%\BazisLib'
+#  BZSLIB_PATH: C:\projects\BazisLib
   STLPORT_PATH: '%APPVEYOR_BUILD_FOLDER%\stlport-kernel'
 #  WDK7PATH: C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A
   WDK7PATH: C:\Program Files\Microsoft SDKs\Windows\v7.1
@@ -23,6 +23,8 @@ install:
   - 7z x wtl.zip -o.
   - git submodule update --init --recursive
   - pwd
+  - cd ..
+  - mklink /H BazisLib WinCDEmu\BazisLib
   - move BazisLib ..
 #  - cmd
 
