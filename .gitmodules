@@ -1,0 +1,6 @@
+[submodule "BazisLib"]
+	path = BazisLib
+	url = https://github.com/sysprogs/BazisLib.git
+[submodule "stlport-kernel"]
+	path = stlport-kernel
+	url = https://github.com/sysprogs/stlport-kernel.git
