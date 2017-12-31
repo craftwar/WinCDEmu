@@ -1,0 +1,43 @@
+version: '{build}'
+skip_tags: true
+image: Visual Studio 2017
+init:
+  - ps: if ($env:rdp -eq "1") { iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1')) }
+environment:
+  BZSLIB_PATH: '%APPVEYOR_BUILD_FOLDER%\BazisLib'
+  STLPORT_PATH: '%APPVEYOR_BUILD_FOLDER%\stlport-kernel'
+  WDK7PATH: C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1A
+  WTL_PATH: '%APPVEYOR_BUILD_FOLDER%\wtl81_12085'
+
+install:
+  - echo %APPVEYOR_BUILD_FOLDER%
+#  - if not exist wtl81_12085.zip curl -kLo wtl81_12085.zip "https://downloads.sourceforge.net/project/wtl/WTL%208.1/WTL%208.1.12085/wtl81_12085.zip?r=&ts=1514700083" -f --retry 5 -C -
+  - if not exist wtl81_12085.zip curl -kLo wtl81_12085.zip "https://downloads.sourceforge.net/project/wtl/WTL 8.1/WTL 8.1.12085/wtl81_12085.zip" -f --retry 5 -C -
+#-FileName NsProcess.zip
+#appveyor DownloadFile "http://downloads.sourceforge.net/project/nsis/NSIS 2/2.46/nsis-2.46-setup.exe" -FileName nsissetup.exe
+#  - if not exist wtl81_12085.zip appveyor DownloadFile "https://downloads.sourceforge.net/project/wtl/WTL 8.1/WTL 8.1.12085/wtl81_12085.zip"
+  - 7z x wtl81_12085.zip -o.
+  - git submodule update --init --recursive
+  - pwd
+#  - move BazisLib ..
+#  - cmd
+
+build_script:  
+  - '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" x64_x86' #use cross build x86 to speed up
+#  - call msbuild /m /p:Configuration=%build_config% C:\projects\obs-studio\build32\plugins/win-capture/inject-helper/inject-helper.vcxproj /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+  - '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"'
+  - call msbuild /m /p:Configuration="Release (Kernel-mode)" WinCDEmu.sln /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+  - call msbuild /m /p:Configuration="Release (User-mode)" WinCDEmu.sln /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+
+before_deploy:
+#  - 7z x C:\projects\obs-studio\fix.7z -oC:\projects\obs-studio\fix
+#  - copy /Y C:\projects\obs-studio\fix\* C:\projects\obs-studio\build64\rundir\Release\bin\64bit
+  - C:\projects\obs-studio\CI\before-deploy-win.cmd
+
+deploy_script:
+  - ps: Push-AppveyorArtifact "build.7z" -FileName "OBS-git-craftwar.7z"
+
+test: off
+
+cache:
+  - wtl81_12085.zip
