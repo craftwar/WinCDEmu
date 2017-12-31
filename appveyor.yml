@@ -23,7 +23,7 @@ install:
   - 7z x wtl.zip -o.
   - git submodule update --init --recursive
   - pwd
-  - cmd  
+#  - cmd  
 #  - cd ..
 #  - mklink /H C:\projects\BazisLib %APPVEYOR_BUILD_FOLDER%\BazisLib
   - cp -r BazisLib ..
