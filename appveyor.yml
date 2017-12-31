@@ -8,7 +8,7 @@ environment:
   BZSLIB_PATH: C:\projects\BazisLib
   STLPORT_PATH: '%APPVEYOR_BUILD_FOLDER%\stlport-kernel'
 #  WDK7PATH: C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A
-  WDK7PATH: C:\Program Files\Microsoft SDKs\Windows\v7.1\
+  WDK7PATH: C:\Program Files\Microsoft SDKs\Windows\v7.1
   WTL_PATH: '%APPVEYOR_BUILD_FOLDER%\wtl'
 
 install:
