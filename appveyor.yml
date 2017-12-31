@@ -19,7 +19,7 @@ install:
   - 7z x wtl81_12085.zip -o.
   - git submodule update --init --recursive
   - pwd
-#  - move BazisLib ..
+  - move BazisLib ..
 #  - cmd
 
 build_script:  
