@@ -11,6 +11,7 @@ environment:
 
 install:
   - echo %APPVEYOR_BUILD_FOLDER%
+  - cmd  
 #  - if not exist wtl81_12085.zip curl -kLo wtl81_12085.zip "https://downloads.sourceforge.net/project/wtl/WTL%208.1/WTL%208.1.12085/wtl81_12085.zip?r=&ts=1514700083" -f --retry 5 -C -
 #  - if not exist wtl81_12085.zip curl -kLo wtl.zip "https://downloads.sourceforge.net/project/wtl/WTL 8.1/WTL 8.1.12085/wtl81_12085.zip" -f --retry 5 -C -
   - if not exist wtl81_12085.zip curl -kLo wtl.zip "https://downloads.sourceforge.net/project/wtl/WTL 8.0/WTL 8.0 Final/WTL80_7161_Final.zip" -f --retry 5 -C -
